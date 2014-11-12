@@ -1,0 +1,3 @@
+# Module lab3
+# RPC service class, partial path of RPC policy file
+ie.dit.britton.darren.client.GreetingService, E0F609364E2552671866EC9628DE057E.gwt.rpc

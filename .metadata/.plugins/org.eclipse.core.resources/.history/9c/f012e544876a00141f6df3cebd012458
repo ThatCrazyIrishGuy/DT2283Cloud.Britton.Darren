@@ -1,0 +1,35 @@
+package ie.dit.britton.darren.FlopBox;
+
+import java.io.IOException;
+import java.security.Principal;
+
+import javax.servlet.http.*;
+
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+
+@SuppressWarnings("serial")
+public class FlopBoxServlet extends HttpServlet {
+	public void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		resp.setContentType("text/plain");
+		UserService userService = UserServiceFactory.getUserService(); //gets instance of user service instance
+		Principal myPrincipal = req.getUserPrincipal(); // gets instance of user principle
+		String emailAddress = null; // empty email string
+		String thisURL = req.getRequestURI(); //gets the current url
+		String loginURL = userService.createLoginURL(thisURL); // creates login service for obtained url
+		String logoutURL = userService.createLogoutURL(thisURL); // creates logout service for obtained url
+		resp.setContentType("text/html"); //sets output writer for html
+		if(myPrincipal == null) { //if principle empty
+		resp.getWriter().println("<p>You are Not Logged In time</p>"); // writes string
+		resp.getWriter().println("<p>You can <a href=\""+loginURL+ // writes another string...
+		"\">sign in here</a>.</p>"); // more string
+		} // end if not logged in
+		if(myPrincipal !=null) { // if principle populated
+		emailAddress = myPrincipal.getName(); // gets email from principle instace
+		resp.getWriter().println("<p>You are Logged in as (email): "+emailAddress+"</p>"); // writes string
+		resp.getWriter().println("<p>You can <a href=\"" + logoutURL +
+		 "\">sign out</a>.</p>"); //writes string
+		} // end if logged in
+	}
+}

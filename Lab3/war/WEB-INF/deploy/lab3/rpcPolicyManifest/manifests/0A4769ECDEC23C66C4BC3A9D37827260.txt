@@ -1,0 +1,2 @@
+serviceClass: ie.dit.britton.darren.client.GreetingService
+path: E0F609364E2552671866EC9628DE057E.gwt.rpc

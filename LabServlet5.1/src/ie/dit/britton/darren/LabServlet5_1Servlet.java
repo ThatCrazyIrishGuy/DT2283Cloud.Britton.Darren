@@ -29,9 +29,7 @@ public class LabServlet5_1Servlet extends HttpServlet {
 		} // end if not logged in
 		if(myPrincipal !=null) { // if principle populated
 		emailAddress = myPrincipal.getName(); // gets email from principle instace
-		resp.getWriter().println("<p>You are Logged in as (email): "+emailAddress+"</p>"); // writes string
-		resp.getWriter().println("<p>You can <a href=\"" + logoutURL +
-		 "\">sign out</a>.</p>"); //writes string
+		resp.sendRedirect("/upload.jsp");
 		} // end if logged in
 	}
 }
