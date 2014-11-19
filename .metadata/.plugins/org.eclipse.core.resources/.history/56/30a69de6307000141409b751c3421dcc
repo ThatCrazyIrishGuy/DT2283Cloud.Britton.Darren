@@ -1,0 +1,50 @@
+<%@ page import="com.google.appengine.api.blobstore.BlobstoreServiceFactory" %>
+<%@ page import="com.google.appengine.api.blobstore.BlobstoreService" %>
+<%BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService(); %>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+<!-- Photo Uploader CSS -->
+<link href="css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+
+<!-- Jquery -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<!-- Photo Uploader JS -->
+<script src="js/fileinput.js" type="text/javascript"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+
+<html>
+	<head>
+		<title>Upload Test</title>
+	</head>
+	<body>
+    <div class="container">
+      <h2>Photo Upload Form</h2>
+      <form role="form" action="<%= blobstoreService.createUploadUrl("/upload") %>" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+          <div class="form-group">
+          <input id="input-24" type="file" multiple="false" data-show-upload="false" name="myFile">
+        <script>
+			$("#input-24").fileinput({
+				maxFileSize: 32000,
+				allowedFileExtensions: ['jpg', 'gif', 'png'],
+			});
+			
+			$('#input-24').on('fileloaded', function(event, file, previewId) {
+    			this.data-show-upload = true;
+    		});
+
+		</script>
+        </div>
+      </form>
+    </div>
+	</body>
+</html>

@@ -1,0 +1,44 @@
+<%@ page import="com.google.appengine.api.blobstore.BlobstoreServiceFactory" %>
+<%@ page import="com.google.appengine.api.blobstore.BlobstoreService" %>
+<%BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService(); %>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+<!-- Photo Uploader CSS -->
+<link href="path/to/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+
+<!-- Jquery -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+
+<html>
+	<head>
+		<title>Upload Test</title>
+	</head>
+	<body>
+    <div class="container">
+      <h2>Photo Upload Form</h2>
+      <form role="form" action="<%= blobstoreService.createUploadUrl("/upload") %>" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+        <script>
+          <label for="fileInput">Choose a Photo/Photos:</label>
+          <input id="input-24" type="file" multiple="true">
+			$("#input-24").fileinput({
+			overwriteInitial: false,
+			maxFileSize: 25000,
+			initialCaption: "The Moon and the Earth"
+			});
+		</script>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </form>
+    </div>
+	</body>
+</html>
