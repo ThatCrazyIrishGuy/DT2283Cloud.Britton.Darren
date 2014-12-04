@@ -8,13 +8,9 @@
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="4"/>
 </listAttribute>
-<listAttribute key="org.eclipse.debug.ui.favoriteGroups">
-<listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
-<listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
-</listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="com.google.gdt.eclipse.suite.appengineClasspathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.google.appengine.tools.development.DevAppServerMain"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-codeServerPort 9997 --port=8888 ie.dit.britton.darren.PictureBox C:\Users\Darrens\Documents\DESKTOP\GitHub\DT2283Cloud.Britton.Darren\PictureBox\war"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="--port=8888 C:\Users\Darren\Documents\GitHub\DT2283Cloud.Britton.Darren\PictureBox\war"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="PictureBox"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-javaagent:C:\Users\Darrens\Documents\eclipse\plugins\com.google.appengine.eclipse.sdkbundle_1.9.13\appengine-java-sdk-1.9.13\lib\agent\appengine-agent.jar -Ddatastore.default_high_rep_job_policy_unapplied_job_pct=50 -Xmx512m"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Ddatastore.default_high_rep_job_policy_unapplied_job_pct=50 -Xmx512m -javaagent:C:\Users\Darren\Documents\eclipse\plugins\com.google.appengine.eclipse.sdkbundle_1.9.15\appengine-java-sdk-1.9.15\lib\agent\appengine-agent.jar"/>
 </launchConfiguration>

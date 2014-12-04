@@ -1,0 +1,27 @@
+package ie.dit.britton.darren;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServlet;
+
+import com.google.appengine.api.blobstore.BlobInfo;
+import com.google.appengine.api.blobstore.BlobInfoFactory;
+import com.google.appengine.labs.repackaged.com.google.common.collect.Lists;
+
+public 	class GetBlobs extends HttpServlet {
+	
+String key;
+// iterator to store queried blob info
+List<BlobInfo> filesList = Lists.newArrayList(new BlobInfoFactory().queryBlobInfos());
+// loop through files information returned from query
+for(BlobInfo blobInfo : filesList)
+{
+// retrieves blob key as a string with added characters which are not required
+key = blobInfo.getBlobKey().toString();
+// extract the key from returned key string
+key = key.substring(10, key.length()-1);
+// display a row with blob filename and info inside the html table
+res.getWriter().println("<tr><td>"+filesList.get(i).getFilename()+"</td><td>"+filesList.get(i).getContentType()+"</td><td>"+filesList.get(i).getSize()+"</td><td><input onClick=\"location.href='/serve?blob-key="+key+"'\" type=\"button\" value=\"Download\" /></td></tr>");
+}
+
+}
