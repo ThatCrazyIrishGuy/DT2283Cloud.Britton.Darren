@@ -12,5 +12,5 @@
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.google.appengine.tools.development.DevAppServerMain"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="--port=8888 C:\Users\Darren\Documents\GitHub\DT2283Cloud.Britton.Darren\PictureBox\war"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="PictureBox"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Ddatastore.default_high_rep_job_policy_unapplied_job_pct=50 -Xmx512m -javaagent:C:\Users\Darren\Documents\eclipse\plugins\com.google.appengine.eclipse.sdkbundle_1.9.15\appengine-java-sdk-1.9.15\lib\agent\appengine-agent.jar"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-javaagent:C:\Users\Darren\Documents\eclipse\plugins\com.google.appengine.eclipse.sdkbundle_1.9.15\appengine-java-sdk-1.9.15\lib\agent\appengine-agent.jar -Ddatastore.default_high_rep_job_policy_unapplied_job_pct=50 -Xmx512m"/>
 </launchConfiguration>

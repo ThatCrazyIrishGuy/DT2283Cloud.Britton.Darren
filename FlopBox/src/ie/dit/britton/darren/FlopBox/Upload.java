@@ -27,6 +27,7 @@ Map<String, BlobKey> blobs = blobstoreService.getUploadedBlobs(req);
  res.sendRedirect("/");
  } else {
  System.out.println("Uploaded a file with blobKey:"+blobKey.getKeyString());
+ System.out.println("Keysize is: " + blobKey.getKeyString().length());
  res.sendRedirect("/serve?blob-key=" + blobKey.getKeyString());
  }
 }

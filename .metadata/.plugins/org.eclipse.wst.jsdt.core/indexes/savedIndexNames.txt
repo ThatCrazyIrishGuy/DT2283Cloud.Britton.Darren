@@ -1,0 +1,1 @@
+INDEX VERSION 1.3+C:\Users\Darren\Documents\GitHub\DT2283Cloud.Britton.Darren\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
