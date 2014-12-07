@@ -23,4 +23,16 @@
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
+<fullyQualifiedTypeName name="com.google.appengine.api.datastore.DatastoreServiceFactory"/>
+<fullyQualifiedTypeName name="com.google.appengine.api.datastore.Key"/>
+<fullyQualifiedTypeName name="com.google.appengine.api.datastore.Query.Filter"/>
+<fullyQualifiedTypeName name="com.google.apphosting.api.DatastorePb.Query.Filter"/>
+<fullyQualifiedTypeName name="java.lang.Boolean"/>
+<fullyQualifiedTypeName name="com.google.appengine.api.datastore.KeyFactory"/>
+<fullyQualifiedTypeName name="com.google.appengine.labs.repackaged.com.google.common.collect.Multimap"/>
+<fullyQualifiedTypeName name="com.google.appengine.labs.repackaged.com.google.common.collect.ArrayListMultimap"/>
+<fullyQualifiedTypeName name="com.google.appengine.api.images.ServingUrlOptions"/>
+<fullyQualifiedTypeName name="com.google.apphosting.api.DatastorePb.DatastoreService"/>
+<fullyQualifiedTypeName name="com.google.appengine.api.datastore.DatastoreService"/>
+<fullyQualifiedTypeName name="com.google.appengine.api.datastore.Entity"/>
 </qualifiedTypeNameHistroy>

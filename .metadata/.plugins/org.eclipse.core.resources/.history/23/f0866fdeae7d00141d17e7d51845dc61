@@ -1,0 +1,69 @@
+package ie.dit.britton.darren;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.appengine.api.blobstore.BlobInfo;
+import com.google.appengine.api.blobstore.BlobInfoFactory;
+import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.images.ImagesService;
+import com.google.appengine.api.images.ImagesServiceFactory;
+import com.google.appengine.api.images.ServingUrlOptions;
+import com.google.appengine.labs.repackaged.com.google.common.collect.ArrayListMultimap;
+import com.google.appengine.labs.repackaged.com.google.common.collect.Multimap;
+
+@SuppressWarnings("serial")
+public class GetAdminBlobs extends HttpServlet {
+	public void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		
+		      Multimap<String, String>fileMap = ArrayListMultimap.create();
+
+	          BlobKey key;
+	          String keyString;
+	          String visibility;
+              ServingUrlOptions suo;
+	          BlobInfo blobInfo;
+
+	          BlobDAO blobDAO = new BlobDAO();
+	          BlobInfoFactory blobInfoFactory = new BlobInfoFactory();
+	          ArrayList<String> blobList;
+
+	          blobList = (ArrayList<String>) blobDAO.getUserBlobs();
+	
+	          ImagesService imagesService = ImagesServiceFactory.getImagesService();
+	          // loop through files information returned from query
+	          for(int i = 0; i < blobList.size(); i++) {
+	        	  //resp.getWriter().println("blobs recieved =" + blobList.size() + "\n blobkey =" + blobList.get(i));
+	        	  keyString = blobList.get(i);
+	              key = new BlobKey(keyString);
+	              suo = ServingUrlOptions.Builder.withBlobKey(key);
+		          blobInfo = blobInfoFactory.loadBlobInfo(key);
+		          visibility = blobDAO.getBlobVisibility(keyString);
+		          
+	              fileMap.put(keyString, imagesService.getServingUrl(suo));
+	              fileMap.put(keyString, blobInfo.getFilename());
+	              fileMap.put(keyString, blobInfo.getCreation().toString());
+	              fileMap.put(keyString, blobInfo.getContentType());
+	              fileMap.put(keyString, String.valueOf(blobInfo.getSize() / 1024));
+	              fileMap.put(keyString, visibility);
+	         }
+	          
+	          req.setAttribute("fileMap", fileMap);
+	          
+	          RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/myImages.jsp");
+	          try {
+				dispatcher.forward(req, resp);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}	
+

@@ -1,0 +1,49 @@
+package ie.dit.britton.darren;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+import com.google.appengine.labs.repackaged.com.google.common.collect.Multimap;
+
+@SuppressWarnings("serial")
+public class GetBlobs extends HttpServlet {
+	public void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+			
+			UserService userService = UserServiceFactory.getUserService();
+			
+	      	BlobDAO blobDAO = new BlobDAO();
+	      	PictureService pictureService;
+	      	
+	          if (userService.isUserLoggedIn())
+	          {
+	              pictureService = new PictureService((ArrayList<String>) blobDAO.getAllBlobs());
+	          }
+	          else
+	          {
+	              pictureService = new PictureService((ArrayList<String>) blobDAO.getPublicBlobs());
+
+	          }
+	          
+		      	Multimap<String, String>picInfoMap = pictureService.getCoreInfo();
+	          
+	      		req.setAttribute("fileMap", picInfoMap);
+          
+	          RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+	          try {
+				dispatcher.forward(req, resp);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}	
+

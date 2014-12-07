@@ -1,0 +1,182 @@
+package ie.dit.britton.darren;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+import com.google.appengine.api.utils.SystemProperty;
+
+public class BlobDAO {
+	
+	DatastoreService datastore;
+	
+	public BlobDAO()
+	{
+	    datastore = DatastoreServiceFactory.getDatastoreService();
+	}
+	
+	public void uploadInfo(List<BlobKey> blobKey)
+	{
+		  UserService userService = UserServiceFactory.getUserService(); //gets instance of user service instance
+		  String name = userService.getCurrentUser().getNickname();
+		  boolean isPublic = userService.isUserAdmin();
+		  
+		  Key newKey;
+		  Entity picInfo;
+		  
+		  for (BlobKey key : blobKey)
+		  { 
+		    newKey = KeyFactory.createKey("blobKey", key.getKeyString());
+		    picInfo = new Entity("picInfo", newKey);
+		    picInfo.setProperty("uploader", name);
+		    picInfo.setProperty("public", isPublic);
+		    datastore.put(picInfo);
+		  }
+	 }
+	
+	public List<String> getUserBlobs()
+	{
+		ArrayList<String> blobs = new ArrayList<String>();
+		
+	    UserService userService = UserServiceFactory.getUserService(); //gets instance of user service instance
+	    String name = userService.getCurrentUser().getNickname();
+		
+		Filter heightMinFilter =
+				  new FilterPredicate("height",
+				                      FilterOperator.GREATER_THAN_OR_EQUAL,
+				                      minHeight);
+
+				Filter heightMaxFilter =
+				  new FilterPredicate("height",
+				                      FilterOperator.LESS_THAN_OR_EQUAL,
+				                      maxHeight);
+
+				//Use CompositeFilter to combine multiple filters
+				Filter heightRangeFilter =
+				  CompositeFilterOperator.and(heightMinFilter, heightMaxFilter);
+
+
+				// Use class Query to assemble a query
+				Query q = new Query("Person").setFilter(heightRangeFilter);
+
+				// Use PreparedQuery interface to retrieve results
+				PreparedQuery pq = datastore.prepare(q);
+
+
+				for (Entity result : pq.asIterable()) {
+				  String firstName = (String) result.getProperty("firstName");
+				  String lastName = (String) result.getProperty("lastName");
+				  Long height = (Long) result.getProperty("height");
+
+				  System.out.println(firstName + " " + lastName + ", " + height + " inches tall");
+				}
+
+		
+		return blobs;
+	}
+	
+	public List<String> getPublicBlobs()
+	{
+		ArrayList<String> blobs = new ArrayList<String>();
+		
+	    try {
+		      Connection conn = DriverManager.getConnection(url);
+		      try {
+
+    	          String statement = "SELECT blobKey FROM pictureinfo.picinfo WHERE public = 1 ";
+    	          PreparedStatement stmt = conn.prepareStatement(statement);
+    	          ResultSet rs = stmt.executeQuery();
+    	          
+    	          while(rs.next())
+    	          {
+    	        	  blobs.add(rs.getString("blobKey"));
+    	          }
+    	          
+		        }
+		      finally {
+		        conn.close();
+		      }
+		    } catch (SQLException e) {
+			      e.printStackTrace();
+		    }
+		return blobs;
+	}
+	
+	public List<String> getAllBlobs()
+	{
+		ArrayList<String> blobs = new ArrayList<String>();
+		
+	    try {
+		      Connection conn = DriverManager.getConnection(url);
+		      try {
+
+    	          String statement = "SELECT blobKey FROM pictureinfo.picinfo";
+    	          PreparedStatement stmt = conn.prepareStatement(statement);
+    	          ResultSet rs = stmt.executeQuery();
+    	          
+    	          while(rs.next())
+    	          {
+    	        	  blobs.add(rs.getString("blobKey"));
+    	          }
+    	          
+		        }
+		      finally {
+		        conn.close();
+		      }
+		    } catch (SQLException e) {
+			      e.printStackTrace();
+		    }
+		return blobs;
+	}
+	
+	public void deleteBlob(String blobKey)
+	{		
+	    try {
+		      Connection conn = DriverManager.getConnection(url);
+		      try {
+
+    	          String statement = "DELETE FROM pictureinfo.picinfo WHERE blobKey = ?";
+    	          PreparedStatement stmt = conn.prepareStatement(statement);
+    	          stmt.setString(1, blobKey);
+    	          stmt.executeUpdate();        
+		        }
+		      finally {
+		        conn.close();
+		      }
+		    } catch (SQLException e) {
+			      e.printStackTrace();
+		    }
+	}
+	
+	public void updateBlobVisibility(Integer isPublic, String blobKey)
+	{		
+	    try {
+		      Connection conn = DriverManager.getConnection(url);
+		      try {
+
+    	          String statement = "UPDATE pictureinfo.picinfo SET isPublic = ? WHERE blobKey = ?";
+    	          PreparedStatement stmt = conn.prepareStatement(statement);
+    	          stmt.setInt(1, isPublic);
+    	          stmt.setString(2, blobKey);
+    	          stmt.executeUpdate();        
+		        }
+		      finally {
+		        conn.close();
+		      }
+		    } catch (SQLException e) {
+			      e.printStackTrace();
+		    }
+	}
+}
