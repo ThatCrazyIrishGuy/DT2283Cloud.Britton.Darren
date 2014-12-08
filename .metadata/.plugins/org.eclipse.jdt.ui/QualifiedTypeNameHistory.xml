@@ -35,4 +35,6 @@
 <fullyQualifiedTypeName name="com.google.apphosting.api.DatastorePb.DatastoreService"/>
 <fullyQualifiedTypeName name="com.google.appengine.api.datastore.DatastoreService"/>
 <fullyQualifiedTypeName name="com.google.appengine.api.datastore.Entity"/>
+<fullyQualifiedTypeName name="com.google.appengine.api.users.UserServiceFactory"/>
+<fullyQualifiedTypeName name="com.google.appengine.api.users.UserService"/>
 </qualifiedTypeNameHistroy>
